@@ -1,0 +1,29 @@
+{% extends 'base.htm' %}
+{% block image_slider %}{% endblock image_slider %}
+{% block msg %}
+{% if messages %}
+{% for msg in messages %}
+{{msg}}
+{% endfor %}
+{% endif %}
+{% endblock msg %}
+{% block content1 %}
+<div class="col-sm-5">
+    <h3 class="text-black my-5">Login</h3>
+    <form action="" method="POST">
+      {% csrf_token %}
+      {% for fm in form %}
+        <div class="form-group">
+          {{fm.label_tag}}{{fm}}<small class="alert-danger">{{fm.errors|striptags}}</small>
+        </div>
+      {% endfor %}
+      <input type="submit" value="Login" class="btn btn-primary">
+      {% if form.non_field_errors %}
+        {% for err in form.non_field_errors %}
+          <p class="alert alert-danger my-3">{{err}}</p>
+        {% endfor %}
+      {% endif %}
+    </form>
+</div>
+{% endblock content1 %} 
+

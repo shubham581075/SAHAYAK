@@ -1,0 +1,30 @@
+{% extends 'base.htm' %}
+{% load static %}
+{% block image_slider %}{% endblock image_slider %}
+{% block content1 %}
+<div class="works" id="work">
+    <div class="container">
+        <!-- default heading -->
+        <div class="default-heading">
+            <!-- heading -->
+            <h2>{{servi|capfirst}} Services</h2>
+            <!-- paragraph -->
+        </div>
+        <div class="row">
+            {% for obj2 in dict1 %}
+                {% ifequal obj2.categ servi %}
+                    <div class="col-md-3 my-4">
+                        <!-- work item -->
+                        <div class="work-item">
+                            <!-- work details image -->
+                            <a href="{{obj2.name}}/"><img class="img-responsive" src="{{obj2.img.url}}" alt="" width="70" height="70"></a>
+                            <!-- heading -->
+                            <h6 class="my-2"><a href="#">{{obj2.name}}</a></h6>
+                        </div>
+                    </div>
+                {% endifequal %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content1 %}

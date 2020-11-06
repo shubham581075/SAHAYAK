@@ -1,0 +1,101 @@
+{% extends 'base.htm' %}
+{% load static %}
+{% block msg %}
+<div class="d-flex justify-content-center align-items-center my-1">
+    {% if messages %}
+      {% for msg in messages %}
+        <p {% if msg.tags %} class="alert alert-{{msg.tags}} alert-dismissible fade show" {% endif %} > {{msg}} </p>
+      {% endfor %}
+    {% endif %}
+</div>
+{% endblock msg %}
+{% block content1 %}
+<div class="works" id="work">
+    <div class="container">
+        <!-- default heading -->
+        <div class="default-heading">
+            <!-- heading -->
+            <h2>Our Services</h2>
+            <!-- paragraph -->
+        </div>
+        <div class="row">
+            <div class="col-md-3 my-4">
+                <!-- work item -->
+                <div class="work-item">
+                    <!-- work details image -->
+                    <a href="services/cleaning/"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <!-- heading -->
+                    <h6 class="my-2"><a href="services/cleaning/">Cleaning Services</a></h6>
+                    <!-- brand org -->
+                    
+                </div>
+            </div>
+            <div class="col-md-3 my-4">
+                <!-- work item -->
+                <div class="work-item">
+                    <!-- work details image -->
+                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <!-- heading -->
+                    <h6 class="my-2"><a href="#">Plumber, Carpenter</a></h6>
+                    <!-- brand org -->
+                    
+                </div>
+            </div>
+            <div class="col-md-3 my-4">
+                <!-- work item -->
+                <div class="work-item">
+                    <!-- work details image -->
+                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <!-- heading -->
+                    <h6 class="my-2"><a href="#">Electronics and Repair</a></h6>
+                    <!-- brand org -->
+                    
+                </div>
+            </div>
+            <div class="col-md-3 my-4">
+                <!-- work item -->
+                <div class="work-item">
+                    <!-- work details image -->
+                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <!-- heading -->
+                    <h6 class="my-2"><a href="#">Painting and Interiors</a></h6>
+                    <!-- brand org -->
+                    
+                </div>
+            </div>
+            <div class="col-md-3 my-4">
+                <!-- work item -->
+                <div class="work-item">
+                    <!-- work details image -->
+                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <!-- heading -->
+                    <h6 class="my-2"><a href="#">Car, Bike Repair</a></h6>
+                    <!-- brand org -->
+                    
+                </div>
+            </div>
+            <div class="col-md-3 my-4">
+                <!-- work item -->
+                <div class="work-item">
+                    <!-- work details image -->
+                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <!-- heading -->
+                    <h6 class="my-2"><a href="#">Packers and Movers</a></h6>
+                    <!-- brand org -->
+                    
+                </div>
+            </div>
+            <div class="col-md-3 my-4">
+                <!-- work item -->
+                <div class="work-item">
+                    <!-- work details image -->
+                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <!-- heading -->
+                    <h6 class="my-2"><a href="#">Others</a></h6>
+                    <!-- brand org -->                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content1 %}
