@@ -5,6 +5,16 @@ from .models import User as t_user
 from .models import ContactUser,UserService
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+import time,webbrowser,pyautogui
+
+
+def sendmsg(request):
+    phone="+919565234221"
+    msg="I am Shubham Singh"
+    webbrowser.open('https://web.whatsapp.com/send?phone='+phone+'&text='+msg)
+    time.sleep(10)
+    pyautogui.press('enter')
+    return HttpResponseRedirect('/')
 
 
 def submitservice(request,serv,submit_serv):
