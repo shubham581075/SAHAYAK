@@ -4,6 +4,7 @@
 <head>
 <title>{% block title %}mini-project{% endblock title %}</title>
 <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
 <script src="{% static 'js/jquery.js' %}"></script>
@@ -67,6 +68,8 @@
 <!-- for main content -->
 {% block content1 %}
 {% endblock content1 %}
-
+{% include 'bottom.htm' %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </body>
 </html>

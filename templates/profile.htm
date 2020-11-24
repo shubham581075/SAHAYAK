@@ -9,21 +9,48 @@
 {% endblock msg %}
 
 {% block content1 %}
-<div class="col-sm-5">
-  <h3 class="text-black my-5">Your Profile</h3>
-  <form action="" method="POST">
-    {% csrf_token %}
-    {% for fm in form %}
-      <div class="form-group">
-        {{fm.label_tag}}{{fm}}<small class="alert-danger">{{fm.errors|striptags}}</small>
+<div class="section margin-top_50 my-5">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-6 layout_padding_2">
+              <div class="full">
+                  <div class="heading_main text_align_left">
+                    <h2><span>Your</span> Profile</h2>
+                  </div>
+                  <div class="full">
+                    <form action="" method="POST">
+                      {% csrf_token %}
+                      {% for fm in form %}
+                          <div class="form-group">
+                            {{fm.label_tag}}{{fm}}<small class="alert-danger">{{fm.errors|striptags}}</small>
+                          </div>
+                      {% endfor %}
+                      <input type="submit" value="Save" class="btn btn-primary">
+                      {% if form.non_field_errors %}
+                        {% for err in form.non_field_errors %}
+                          <p class="alert alert-danger my-3">{{err}}</p>
+                        {% endfor %}
+                      {% endif %}
+                    </form>
+                </div>
+              </div>
+          </div>
+          {% for service in servicelist %}
+            {{service.required_service| capfirst}}<br>
+            {{service.booking_date}}<br>
+            {{service.booking_time}}<br>
+            {{service.expected_date}}<br>
+            {{service.expected_time}}<br>
+            {{service.total_charge}}<br>
+            {{service.extra_charge}}<br>
+            {{service.vendor}}<br>
+          {% endfor %}
       </div>
-    {% endfor %}
-    <input type="submit" value="Save" class="btn btn-primary">
-    {% if form.non_field_errors %}
-      {% for err in form.non_field_errors %}
-        <p class="alert alert-danger my-3">{{err}}</p>
-      {% endfor %}
-    {% endif %}
-  </form>
+  </div>
 </div>
+      
+
+
+
+
 {% endblock content1 %} 

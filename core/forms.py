@@ -4,11 +4,10 @@ from django.contrib.auth.models import User as user_admin
 from django.utils.translation import gettext,gettext_lazy as _
 
 class User(forms.Form):
-    user_name=forms.CharField(label='Mobile_no',widget=forms.TextInput(attrs={'class':'form-control'}))
+    mobile_no=forms.CharField(label='Mobile_no',widget=forms.TextInput(attrs={'class':'form-control'}))
     first_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
-    home_address=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     address=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),required=False)
     password=forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
     re_password=forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}),label="Re-Enter Password")
@@ -41,7 +40,6 @@ class Usercontact(forms.Form):
     name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
     phone_no=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    address=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     desc=forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
 
 
@@ -51,4 +49,10 @@ class Submitservice(forms.Form):
     contact_no=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     address=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     service=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    problem_desc=forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
+    expected_date=forms.DateField(widget=forms.DateInput(attrs={'class':'form-control','type':'date'}), required=False)
+    expected_time=forms.TimeField(widget=forms.TimeInput(attrs={'class':'form-control','type':'time'}), required= False)
+    problem_desc=forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','rows':5}))
+
+
+class Search(forms.Form):
+    service=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control mr-sm-2','placeholder':'Search Services','id':'service','aria-label':'Search'}))

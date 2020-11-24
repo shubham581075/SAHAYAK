@@ -1,11 +1,11 @@
 {% extends 'base.htm' %}
 {% block image_slider %}{% endblock image_slider %}
 {% block msg %}
-{% if messages %}
-{% for msg in messages %}
-{{msg}}
-{% endfor %}
-{% endif %}
+  {% if messages %}
+    {% for msg in messages %}
+      {{msg}}
+    {% endfor %}
+  {% endif %}
 {% endblock msg %}
 {% block content1 %}
 <div class="col-sm-5">

@@ -11,5 +11,7 @@ urlpatterns = [
     path('contact/',views.contact,name='Contact'),
     path('services/<serv>/',views.userservice,name='Userservice'),
     path('services/<serv>/<submit_serv>/',views.submitservice,name='Submitservice'),
-    path('sendmsg/',views.sendmsg,name='Sendmsg')
+    path('sendmsg/',views.sendmsg,name='Sendmsg'),
+    path('search/',views.search,name='Search')
+    #path('autocomplet/',views.autocomplet,name=autocomplet)
 ]

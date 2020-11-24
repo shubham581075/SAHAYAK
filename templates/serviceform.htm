@@ -1,4 +1,5 @@
 {% extends 'base.htm' %}
+{% load static %}
 {% block image_slider %}{% endblock image_slider %}
 {% block content1 %}
 <div class="d-flex justify-content-center align-items-center my-2">
@@ -8,7 +9,6 @@
       {% endfor %}
     {% endif %}
 </div>
-  
   
 <div class="col-sm-5">
     <h3 class="text-black my-5">Book Service</h3>
@@ -24,7 +24,10 @@
           {{fm.label_tag}}{{fm}}
         </div>
       {% endfor %}
-      <input type="submit" value="Submit" class="btn btn-primary my-1">
+      <input type="submit" value="Book Service" class="btn btn-primary my-1">
     </form>
 </div>  
+
+
+
 {% endblock content1 %}
