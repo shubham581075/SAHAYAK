@@ -1,6 +1,6 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'Home' %}"><img src="{% static 'images/dog.jpg' %}" height="30" width="50"></a>
+    <a class="navbar-brand" href="/{{place}}/"><img src="{% static 'images/Local-Service-Logo.jpg' %}" height="30" width="50"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,39 +8,39 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'Home' %}">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/{{place}}/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Cities  
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Lucknow</a>
-            <a class="dropdown-item" href="#">Delhi</a>
-            <a class="dropdown-item" href="#">Bangalore</a>
+            <a class="dropdown-item" href="/lucknow/">Lucknow</a>
+            <a class="dropdown-item" href="/delhi/">Delhi</a>
+            <a class="dropdown-item" href="/bangalore/">Bangalore</a>
           </div>
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'Profile' %}">Profile <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/{{place}}/profile/">Profile <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="{% url 'Logout' %}">Logout <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/{{place}}/logout/">Logout <span class="sr-only">(current)</span></a>
         </li>
         {% else %}
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'Register' %}">Register <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/{{place}}/register/">Register <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="{% url 'Login' %}">Login <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/{{place}}/login/">Login <span class="sr-only">(current)</span></a>
         </li>
         {% endif %}
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'Contact' %}">Contact<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/{{place}}/contact/">Contact<span class="sr-only">(current)</span></a>
         </li>
       </ul>
       
-      <form class="form-inline my-2 my-lg-0" action="{% url 'Search' %}" method="POST">
+      <form class="form-inline my-2 my-lg-0" action="/{{place}}/search/" method="POST">
         {% csrf_token %}
         {% for i in form2 %}
           {{i}}
@@ -50,7 +50,7 @@
       <script>
         $( function() {
           $( "#service" ).autocomplete({
-            source: "{% url 'Logout' %}"
+            source: "{% url 'Searchservice' %}"
           });
         });
       </script>

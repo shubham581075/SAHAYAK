@@ -11,7 +11,7 @@ class ContactUserAdmin(admin.ModelAdmin):
 
 @admin.register(UserService)
 class UserServiceAdmin(admin.ModelAdmin):
-    list_display=('id','name','img','categ')
+    list_display=('id','name','img','categ','description')
 
 
 @admin.register(ServiceProvider)

@@ -12,14 +12,15 @@ import datetime as dt
 from django.http import JsonResponse
 
 
-def search(request):
+def search(request,city):
     if(request.method=="POST"):
         fm2=Search(request.POST)
         if(fm2.is_valid()):
             servic=fm2.cleaned_data['service']
             obj1=UserService.objects.get(name=servic)
-            urlreq='/services/'+str(obj1.categ)+'/'+servic+'/'
+            urlreq='/'+city+'/services/'+str(obj1.categ)+'/'+servic+'/'
             return HttpResponseRedirect(urlreq)
+
 
 
 
@@ -43,13 +44,13 @@ def calculate_dis(source,destination):
 
 def sendmsg(msg, recipient_no):
     account_sid = 'ACc40ea0171e8e286e01a088a435b2850d' 
-    auth_token = 'd74a6394344a8c241db045b46138cb78' 
+    auth_token = '469a2d09afd13911ef52d427770af305' 
     client = Client(account_sid, auth_token) 
     message = client.messages.create(from_='+19034965809',  body=msg, to=recipient_no)
 
 
 
-def submitservice(request,serv,submit_serv):
+def submitservice(request,serv,submit_serv,city):
     fm2=Search()
     if(request.method=="POST"):
         fm=Submitservice(request.POST)
@@ -80,6 +81,7 @@ def submitservice(request,serv,submit_serv):
                     
             msg = 'Contact asap !!!                 '+'Name : '+fm.cleaned_data['name']+'              '+'Phone no : '+fm.cleaned_data['contact_no']+'       '+'Address : '+fm.cleaned_data['address']+'        '+'Service Required : '+fm.cleaned_data['service']+'       '+'Expected Date, Time : '+str(fm.cleaned_data['expected_date'])+' '+str(fm.cleaned_data['expected_time'])+'       '+'Description : '+fm.cleaned_data['problem_desc']
             recipient='+91'+str(service_provider)
+            print(recipient)
             sendmsg(msg,recipient)
             messages.success(request,'Service Booked!!!')
 
@@ -87,15 +89,38 @@ def submitservice(request,serv,submit_serv):
         #obj1=t_user.objects.all()
         obj2=t_user.objects.get(mobile=request.user)
         fm=Submitservice({'name':obj2.first_name+" "+obj2.last_name, 'email':obj2.email, 'contact_no':obj2.mobile, 'address':obj2.address, 'service':serv+" "+submit_serv})
-    return render(request,'serviceform.htm',{'form':fm,'form2':fm2})
+    obj3=UserService.objects.get(name=submit_serv)
+    ls=[]
+    s=str(obj3.description)
+    i=0
+    while(i<len(s)):
+        flag=0
+        while(s[i]!='*'):
+            if(flag==0):
+                flag=1
+                s1=s[i]
+            else:
+                s1=s1+s[i]
+            i=i+1
+            if(i>=(len(s)-1)):
+                break
+            if(s[i]=='*'):
+                i=i+1
+                break
+        ls.append(s1)
+        if(i>=len(s)):
+            break
+    print(ls)
+
+    return render(request,'serviceform.htm',{'form':fm,'form2':fm2,'place':city,'desc':ls})
 
 
-def home(request):
+def home(request,city):
     fm2=Search()
-    return render(request,'home.htm',{'form2':fm2})
+    return render(request,'home.htm',{'form2':fm2,'place':city})
     
 
-def register(request):
+def register(request,city):
     fm2=Search()
     if(request.method=='POST'):
         fm=User(request.POST)
@@ -117,12 +142,12 @@ def register(request):
     else:
         fm=User()
 
-    dict1={'form':fm,'form2':fm2}
+    dict1={'form':fm,'form2':fm2,'place':city}
     return render(request,'signup.htm',dict1)
 
 
 
-def signin(request):
+def signin(request,city):
     fm2=Search()
     if(request.method=='POST'):
         fm=Userlogin(request=request,data=request.POST)
@@ -131,17 +156,17 @@ def signin(request):
             if(user is not None):
                 login(request,user)
                 messages.success(request,"Logged in Successfully !")
-                return HttpResponseRedirect('/')
+                return HttpResponseRedirect('/'+city+'/')
             else:
                 messages.warning(request,'username and/or password is/are wrong')
     else:
         fm=Userlogin()
 
-    dict1 = {'form':fm,'form2':fm2}
+    dict1 = {'form':fm,'form2':fm2,'place':city}
     return render(request,'login.htm',dict1)
 
 
-def profile(request):
+def profile(request,city):
     fm2=Search()
     if(request.method=="POST"):
         fm=User(request.POST)
@@ -166,27 +191,31 @@ def profile(request):
             logout(request)
             #update_session_auth_hash(request,mobile)
             messages.success(request,"Profile Updated...login again")
-            return HttpResponseRedirect('/login/')
+            return HttpResponseRedirect('/'+city+'/login/')
         
     customer=t_user.objects.get(mobile=request.user)
     obj4=BookedServices.objects.filter(requestor=request.user)
     fm=User({'mobile_no':customer.mobile, 'first_name':customer.first_name, 'last_name':customer.last_name, 'email':customer.email, 'address':customer.address,'password':customer.password, 're_password':customer.password})
-    return render(request,'profile.htm',{'form':fm,'servicelist':obj4,'form2':fm2})
+    return render(request,'profile.htm',{'form':fm,'servicelist':obj4,'form2':fm2,'place':city})
 
 
-
-def userlogout(request):
+def searchservice(request):
     if 'term' in request.GET:
         qs=UserService.objects.filter(name__contains=request.GET.get('term'))
         titles=list()
         for service in qs:
             titles.append(service.name)
         return JsonResponse(titles, safe=False)
+
+
+
+
+def userlogout(request,city):
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/'+city+'/')
 
 
-def contact(request):
+def contact(request,city):
     fm2=Search()
     if(request.method=="POST"):
         fm=Usercontact(request.POST)
@@ -200,14 +229,14 @@ def contact(request):
             obj1.save()
             messages.info(request,"Your Query has been submitted and it will be resolved soon !")
     fm=Usercontact()
-    return render(request,'contact.htm',{'form':fm,'form2':fm2})
+    return render(request,'contact.htm',{'form':fm,'form2':fm2,'place':city})
 
 
-def userservice(request,serv):
+def userservice(request,serv,city):
     fm2=Search()
     obj1=UserService.objects.all()
     #print(obj1)
     #print(serv)
     #return HttpResponseRedirect('/')
-    return render(request,'services.htm',{'dict1':obj1,'servi':serv,'form2':fm2})
+    return render(request,'services.htm',{'dict1':obj1,'servi':serv,'form2':fm2,'place':city})
 

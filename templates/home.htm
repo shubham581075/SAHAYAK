@@ -15,7 +15,7 @@
         <!-- default heading -->
         <div class="default-heading">
             <!-- heading -->
-            <h2>Our Services</h2>
+            <h2>Services in {{place|capfirst}}</h2>
             <!-- paragraph -->
         </div>
         <div class="row">
@@ -23,9 +23,9 @@
                 <!-- work item -->
                 <div class="work-item">
                     <!-- work details image -->
-                    <a href="services/cleaning/"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <a href="/{{place}}/services/cleaning/"><img class="img-responsive zoom rcorners" src="{% static 'images/cleaning.jpg' %}" alt="Cleaning" width="250" height="200"></a>
                     <!-- heading -->
-                    <h6 class="my-2"><a href="services/cleaning/">Cleaning Services</a></h6>
+                    <h6 class="my-2"><a href="/{{place}}/services/cleaning/"><p style=font-family:Bellefair>Cleaning Services</p></a></h6>
                     <!-- brand org -->
                     
                 </div>
@@ -34,9 +34,9 @@
                 <!-- work item -->
                 <div class="work-item">
                     <!-- work details image -->
-                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <a href="/{{place}}/services/Plumber, Electrician & Carpenter/"><img class="img-responsive zoom rcorners" src="{% static 'images/plumber-electrician-carpenter.jpg' %}" alt="" width="250" height="200"></a>
                     <!-- heading -->
-                    <h6 class="my-2"><a href="#">Plumber, Carpenter</a></h6>
+                    <h6 class="my-2"><a href="/{{place}}/services/Plumber, Electrician & Carpenter/"><p style=font-family:Bellefair>Plumber, Electrician, Carpenter</p></a></h6>
                     <!-- brand org -->
                     
                 </div>
@@ -45,9 +45,9 @@
                 <!-- work item -->
                 <div class="work-item">
                     <!-- work details image -->
-                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <a href="/{{place}}/services/Electronics and Repair/"><img class="img-responsive zoom rcorners" src="{% static 'images/electronics-appliances.jpg' %}" alt="" width="250" height="200"></a>
                     <!-- heading -->
-                    <h6 class="my-2"><a href="#">Electronics and Repair</a></h6>
+                    <h6 class="my-2"><a href="/{{place}}/services/Electronics and Repair/"><p style=font-family:Bellefair>Electronics and Repair</p></a></h6>
                     <!-- brand org -->
                     
                 </div>
@@ -56,9 +56,9 @@
                 <!-- work item -->
                 <div class="work-item">
                     <!-- work details image -->
-                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <a href="/{{place}}/services/Painting and Interiors/"><img class="img-responsive zoom rcorners" src="{% static 'images/painting-interior.jpg' %}" alt="" width="250" height="200"></a>
                     <!-- heading -->
-                    <h6 class="my-2"><a href="#">Painting and Interiors</a></h6>
+                    <h6 class="my-2"><a href="/{{place}}/services/Painting and Interiors/"><p style=font-family:Bellefair>Painting and Interiors</p></a></h6>
                     <!-- brand org -->
                     
                 </div>
@@ -67,9 +67,9 @@
                 <!-- work item -->
                 <div class="work-item">
                     <!-- work details image -->
-                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <a href="/{{place}}/services/Car, Bike Repair/"><img class="img-responsive zoom rcorners" src="{% static 'images/car-bike-repair.jpg' %}" alt="" width="250" height="200"></a>
                     <!-- heading -->
-                    <h6 class="my-2"><a href="#">Car, Bike Repair</a></h6>
+                    <h6 class="my-2"><a href="/{{place}}/services/Car, Bike Repair/"><p style=font-family:Bellefair>Car, Bike Repair</p></a></h6>
                     <!-- brand org -->
                     
                 </div>
@@ -78,24 +78,75 @@
                 <!-- work item -->
                 <div class="work-item">
                     <!-- work details image -->
-                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <a href="/{{place}}/services/Packers and Movers/"><img class="img-responsive zoom rcorners" src="{% static 'images/packers-movers.jpg' %}" alt="" width="250" height="200"></a>
                     <!-- heading -->
-                    <h6 class="my-2"><a href="#">Packers and Movers</a></h6>
+                    <h6 class="my-2"><a href="/{{place}}/services/Packers and Movers/"><p style=font-family:Bellefair>Packers and Movers</p></a></h6>
                     <!-- brand org -->
                     
                 </div>
             </div>
+            {% ifnotequal place 'delhi' %}
             <div class="col-md-3 my-4">
                 <!-- work item -->
                 <div class="work-item">
                     <!-- work details image -->
-                    <a href="#"><img class="img-responsive" src="{% static 'images/dog.jpg' %}" alt="" width="250" height="200"></a>
+                    <a href="/{{place}}/services/other/"><img class="img-responsive zoom rcorners" src="{% static 'images/others.jpg' %}" alt="" width="250" height="200"></a>
                     <!-- heading -->
-                    <h6 class="my-2"><a href="#">Others</a></h6>
+                    <h6 class="my-2"><a href="/{{place}}/services/other/"><p style=font-family:Bellefair>Others</p></a></h6>
                     <!-- brand org -->                    
                 </div>
             </div>
+            {% endifnotequal %}
         </div>
     </div>
 </div>
+
+
+<section class="row about-us-section2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mt150 center">
+      <img src="{% static 'images/why1.jpg' %}" alt="" class="img-responsive" style="width:100%;">
+        </div>
+        <div class="col-md-8">
+          <div class="row about-us-srow">
+
+            <div class="row m0 about-us-lists about-us-lists-img">
+              <div class="col-sm-4 plr5"><img src="{% static 'images/why2.jpg' %}" alt="" class="img-responsive"></div>
+              <div class="col-sm-4 plr5"><img src="{% static 'images/why3.jpg' %}" alt="" class="img-responsive"></div>
+              <div class="col-sm-4 plr5"><img src="{% static 'images/why4.jpg' %}" alt="" class="img-responsive"></div>
+
+            </div>
+            <div class="row m0 about-us-lists">
+     
+      <h4 class="this-title">Why Should Choose Us?</h4>
+      
+              <p>Customer satisfaction is our paramount goal. We always meet and exceed customers’ satisfaction by providing the highest quality service and products, 
+              coupled with continuous communication to each of our customers. We are determined on satisfying and retaining our Clients who understand and value the element of time saving which has positive effect on repeat business with them. 
+              We strongly believe that good services can only be delivered with the qualified MistriBabu manpower, right attitude and teamwork. By careful planning, scheduling and joint efforts of all parties to achieve a successful outcome of project. </p>
+<p>The Mission of Sahayak-LocalService  is to build on our reputation for integrity, excellence, experience and leadership as the nation’s finest Construction, Maintenance and Repairing Solution organization by:</p>
+<ol class="col-sm-6 iner_page_ser_list paddo">
+       
+<li><i class="fa fa-check"></i> Professional and Experience Staffs</li>
+<li><i class="fa fa-check"></i> Giving Proper Estimate</li>
+<li><i class="fa fa-check"></i>On-Time Work Finish</li>
+<li><i class="fa fa-check"></i> Transparency In Billing</li>
+<li><i class="fa fa-check"></i> No Visiting Charge Same Work For 15Days</li>
+
+</ol>
+
+<ol class="col-sm-6 iner_page_ser_list paddo">
+<li><i class="fa fa-check"></i> Attend Small and Big Job Same Interest</li>
+<li><i class="fa fa-check"></i>Background Verified All Our MistriBabu</li>
+<li><i class="fa fa-check"></i> Maintaining our dedication</li>
+<li><i class="fa fa-check"></i> Constantly striving to exceed expectations</li>
+<li><i class="fa fa-check"></i> Constantly improving the quality of our work</li>
+
+</ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock content1 %}

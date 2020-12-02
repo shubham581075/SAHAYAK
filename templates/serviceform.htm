@@ -8,26 +8,46 @@
         <p {% if msg.tags %} class="alert alert-{{msg.tags}} mb-5" {% endif %} > {{msg}} </p>
       {% endfor %}
     {% endif %}
+</div> 
+
+<div class="news">
+  <div class="container-fluid">
+      <div class="row my-5">
+          <div class="col-md-6">
+            
+            <div class="col-sm-5">
+              <h3 class="text-black my-5">Book Service</h3>
+              <form action="" method="POST">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                  {% for err in form.non_field_errors %}
+                    <p class="alert alert-danger my-3">{{err}}</p>
+                  {% endfor %}
+                {% endif %}
+                {% for fm in form %}
+                  <div class="form-group">
+                    {{fm.label_tag}}{{fm}}
+                  </div>
+                {% endfor %}
+                <input type="submit" value="Book Service" class="btn btn-primary my-1">
+              </form>
+            </div>
+            
+            
+              
+          </div>
+          <div class="col-sm-5 my-5">
+              <h3 class="section-title">About</h3>
+              {% for point in desc %}
+                {% ifnotequal point 'About ' %}
+                  {{point}}<br>
+                {% endifnotequal %}
+              {% endfor %}
+
+              
+          </div>
+      </div>
+  </div>
 </div>
-  
-<div class="col-sm-5">
-    <h3 class="text-black my-5">Book Service</h3>
-    <form action="" method="POST">
-      {% csrf_token %}
-      {% if form.non_field_errors %}
-        {% for err in form.non_field_errors %}
-          <p class="alert alert-danger my-3">{{err}}</p>
-        {% endfor %}
-      {% endif %}
-      {% for fm in form %}
-        <div class="form-group">
-          {{fm.label_tag}}{{fm}}
-        </div>
-      {% endfor %}
-      <input type="submit" value="Book Service" class="btn btn-primary my-1">
-    </form>
-</div>  
-
-
 
 {% endblock content1 %}

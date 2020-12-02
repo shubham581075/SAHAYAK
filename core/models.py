@@ -21,6 +21,7 @@ class UserService(models.Model):
     img=models.ImageField()
     categ=models.CharField(max_length=70)
     price=models.IntegerField(default=100)
+    description=models.CharField(max_length=1000,default="dfgdfg")
 
 class ServiceProvider(models.Model):
     name=models.CharField(max_length=70)
