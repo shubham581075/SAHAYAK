@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponseRedirect
-from .forms import User,Userprofile,Userlogin,Usercontact,Submitservice,Search
+from .forms import User,Userprofile,Userlogin,Usercontact,Submitservice,Search,completeservice
 from django.contrib.auth.models import User as django_user
 from .models import User as t_user
 from .models import ContactUser,UserService,ServiceProvider,BookedServices
@@ -10,6 +10,12 @@ from opencage.geocoder import OpenCageGeocode
 from twilio.rest import Client
 import datetime as dt
 from django.http import JsonResponse
+import string,random
+
+
+
+def faq(request,city):
+    return render(request,'faq.htm',{'place':city})
 
 
 def search(request,city):
@@ -42,11 +48,7 @@ def calculate_dis(source,destination):
     return distanc
     
 
-def sendmsg(msg, recipient_no):
-    account_sid = 'ACc40ea0171e8e286e01a088a435b2850d' 
-    auth_token = '469a2d09afd13911ef52d427770af305' 
-    client = Client(account_sid, auth_token) 
-    message = client.messages.create(from_='+19034965809',  body=msg, to=recipient_no)
+
 
 
 
@@ -75,7 +77,8 @@ def submitservice(request,serv,submit_serv,city):
                 if(len(services)==0):
                     service=UserService.objects.get(name=submit_serv)
                     service_provider=provider.mobile
-                    obj3=BookedServices(required_service=serv+' '+submit_serv,booking_date=(dt.datetime.now()).date(),booking_time=(dt.datetime.now()).time(),expected_date=fm.cleaned_data['expected_date'],expected_time=fm.cleaned_data['expected_time'],total_charge=service.price,extra_charge=str(0),vendor=service_provider,requestor=request.user)
+                    res = ''.join(random.choices(string.ascii_uppercase + string.digits, k = 15))
+                    obj3=BookedServices(required_service=serv+' '+submit_serv,booking_date=(dt.datetime.now()).date(),booking_time=(dt.datetime.now()).time(),expected_date=fm.cleaned_data['expected_date'],expected_time=fm.cleaned_data['expected_time'],total_charge=service.price,extra_charge=str(0),vendor=service_provider,requestor=request.user,status='Booked',token=res)
                     obj3.save()
                     #if(service.expected_date==fm.cleaned_data[date] and int(service.expected_time)fm.cleaned_data[])
                     
@@ -90,6 +93,7 @@ def submitservice(request,serv,submit_serv,city):
         obj2=t_user.objects.get(mobile=request.user)
         fm=Submitservice({'name':obj2.first_name+" "+obj2.last_name, 'email':obj2.email, 'contact_no':obj2.mobile, 'address':obj2.address, 'service':serv+" "+submit_serv})
     obj3=UserService.objects.get(name=submit_serv)
+    pric=obj3.price
     ls=[]
     s=str(obj3.description)
     i=0
@@ -110,9 +114,10 @@ def submitservice(request,serv,submit_serv,city):
         ls.append(s1)
         if(i>=len(s)):
             break
-    print(ls)
-
-    return render(request,'serviceform.htm',{'form':fm,'form2':fm2,'place':city,'desc':ls})
+    ls.pop()
+    ls.pop()
+    imag=obj3.img.url
+    return render(request,'serviceform.htm',{'form':fm,'form2':fm2,'place':city,'desc':ls,'img':imag,'price':pric})
 
 
 def home(request,city):
@@ -136,9 +141,10 @@ def register(request,city):
                 fm=User()
             obj2=django_user(username=mobile,email=email,first_name=first_name,last_name=last_name,password=password)
             obj2.save()
-            obj1=t_user(user_name=user_name,first_name=first_name,last_name=last_name,email=email,mobile=user_name,address=address,password=password,categ='0')
+            obj1=t_user(mobile=mobile,first_name=first_name,last_name=last_name,email=email,address=address,password=password,categ='0')
             obj1.save()
             messages.success(request,"Registration Completed !!")
+            return HttpResponseRedirect('/'+city+'/login/')
     else:
         fm=User()
 
@@ -194,9 +200,15 @@ def profile(request,city):
             return HttpResponseRedirect('/'+city+'/login/')
         
     customer=t_user.objects.get(mobile=request.user)
-    obj4=BookedServices.objects.filter(requestor=request.user)
+    if(customer.categ=='0'):
+        obj4=BookedServices.objects.filter(requestor=request.user)
+        
+    else:
+        obj4=BookedServices.objects.filter(vendor=request.user)
+        
+    fm3=completeservice()
     fm=User({'mobile_no':customer.mobile, 'first_name':customer.first_name, 'last_name':customer.last_name, 'email':customer.email, 'address':customer.address,'password':customer.password, 're_password':customer.password})
-    return render(request,'profile.htm',{'form':fm,'servicelist':obj4,'form2':fm2,'place':city})
+    return render(request,'profile3.htm',{'form':fm,'servicelist':obj4,'form2':fm2,'place':city,'usr':customer,'form3':fm3})
 
 
 def searchservice(request):
@@ -233,10 +245,31 @@ def contact(request,city):
 
 
 def userservice(request,serv,city):
-    fm2=Search()
-    obj1=UserService.objects.all()
-    #print(obj1)
-    #print(serv)
-    #return HttpResponseRedirect('/')
-    return render(request,'services.htm',{'dict1':obj1,'servi':serv,'form2':fm2,'place':city})
+    if(request.user.is_authenticated):
+        fm2=Search()
+        obj1=UserService.objects.all()
+        #print(obj1)
+        #print(serv)
+        #return HttpResponseRedirect('/')
+        return render(request,'services.htm',{'dict1':obj1,'servi':serv,'form2':fm2,'place':city})
+    else:
+        messages.info(request,"Login first !!")
+        return HttpResponseRedirect('/'+city+'/')
 
+def cancelservice(request,ide,city):
+    obj1=BookedServices.objects.get(id=ide)
+    str1=obj1.required_service
+    obj1.delete()
+    messages.info(request,str1+' Service Cancelled')
+    return HttpResponseRedirect('/'+city+'/profile/')
+
+
+def completeserve(request,city,ide):
+    fm=completeservice(request.POST)
+    if(fm.is_valid()):
+        token=fm.cleaned_data['token']
+        obj2=BookedServices.objects.get(id=ide)
+        obj2.status="Delivered"
+        obj2.save()
+        messages.success(request,"Service Delivered")
+        return HttpResponseRedirect('/'+city+'/profile/')

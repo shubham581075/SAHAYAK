@@ -11,7 +11,7 @@ class ContactUserAdmin(admin.ModelAdmin):
 
 @admin.register(UserService)
 class UserServiceAdmin(admin.ModelAdmin):
-    list_display=('id','name','img','categ','description')
+    list_display=('id','name','img','categ','price','description')
 
 
 @admin.register(ServiceProvider)
@@ -20,4 +20,4 @@ class ServiceProviderAdmin(admin.ModelAdmin):
 
 @admin.register(BookedServices)
 class BookedServicesAdmin(admin.ModelAdmin):
-    list_display=('id','required_service','booking_date','booking_time','expected_date','expected_time','total_charge','extra_charge','vendor','requestor')
+    list_display=('id','required_service','booking_date','booking_time','expected_date','expected_time','total_charge','extra_charge','vendor','requestor','token','status')

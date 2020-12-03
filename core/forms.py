@@ -32,7 +32,7 @@ class Userprofile(UserChangeForm):
 
 
 class Userlogin(AuthenticationForm):
-    username=UsernameField(widget=forms.TextInput(attrs={'autofocus':True, 'class':'form-control'}))
+    username=UsernameField(label="Mobile no",widget=forms.TextInput(attrs={'autofocus':True, 'class':'form-control'}))
     password=forms.CharField(label=_("Password"),strip=False,widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
         
 
@@ -56,3 +56,7 @@ class Submitservice(forms.Form):
 
 class Search(forms.Form):
     service=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control mr-sm-2','placeholder':'Search Services','id':'service','aria-label':'Search'}))
+
+
+class completeservice(forms.Form):
+    token=forms.CharField(label='Enter Token no',widget=forms.TextInput(attrs={'class':'form-control'}))

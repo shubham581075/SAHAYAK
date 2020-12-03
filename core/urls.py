@@ -11,8 +11,11 @@ urlpatterns = [
     path('<city>/contact/',views.contact,name='Contact'),
     path('<city>/services/<serv>/',views.userservice,name='Userservice'),
     path('<city>/services/<serv>/<submit_serv>/',views.submitservice,name='Submitservice'),
+    path('<city>/faq/',views.faq,name='Faq'),
     path('sendmsg/',views.sendmsg,name='Sendmsg'),
     path('<city>/search/',views.search,name='Search'),
-    path('searchservice',views.searchservice,name='Searchservice')
+    path('<city>/<ide>/completeserve/',views.completeserve,name='Completeserve'),
+    path('searchservice',views.searchservice,name='Searchservice'),
+    path('<int:ide>/<city>/cancelservice/',views.cancelservice,name='Cancelservice')
     #path('autocomplet/',views.autocomplet,name=autocomplet)
 ]

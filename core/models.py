@@ -8,6 +8,7 @@ class User(models.Model):
     address=models.TextField()
     password=models.CharField(max_length=50)
     categ=models.CharField(max_length=2,default='0')
+    
 
 class ContactUser(models.Model):
     name=models.CharField(max_length=70)
@@ -21,7 +22,7 @@ class UserService(models.Model):
     img=models.ImageField()
     categ=models.CharField(max_length=70)
     price=models.IntegerField(default=100)
-    description=models.CharField(max_length=1000,default="dfgdfg")
+    description=models.CharField(max_length=2000)
 
 class ServiceProvider(models.Model):
     name=models.CharField(max_length=70)
@@ -40,6 +41,8 @@ class BookedServices(models.Model):
     extra_charge=models.CharField(max_length=70)
     vendor = models.CharField(max_length=15)
     requestor = models.CharField(max_length=15)
+    token=models.CharField(max_length=100, default='fsgsh4886h5ssr454$%^@')
+    status=models.CharField(max_length=100,default='Booked')
     
     
 
