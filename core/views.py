@@ -27,7 +27,10 @@ def search(request,city):
             urlreq='/'+city+'/services/'+str(obj1.categ)+'/'+servic+'/'
             return HttpResponseRedirect(urlreq)
 
-
+def sendmsg(msg, recipient_no):
+     
+    client = Client(account_sid, auth_token) 
+    message = client.messages.create(from_='+19034965809',  body=msg, to=recipient_no)
 
 
 
