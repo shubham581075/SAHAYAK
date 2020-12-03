@@ -78,9 +78,12 @@
                             Expected Service Time: {{service.expected_time}}<br>
                             <b>Total Charge: {{service.total_charge}}</b><br>
                             Extra Charge: {{service.extra_charge}}<br>
-                            
+                            {% ifequal service.vendor '8303531702' %}
                               Vendor Name: Adesh Kumar<br>
-                           
+                            {% endifequal %}
+                            {% ifequal service.vendor '8318940655' %}
+                            Vendor Name: Siddharth Balwant<br>
+                            {% endifequal %}
                               
                             
                             Vendor Phone no: {{service.vendor}}<br>
@@ -92,6 +95,7 @@
                               {% endifequal %}
                             {% endifequal %}
                             {% ifequal usr.categ '1' %}
+                            {% ifequal service.status 'Booked' %}
                               <form action="/{{place}}/{{service.id}}/completeserve/" method="POST">
                                 {% csrf_token %}
                                 {% for fm in form3 %}
@@ -106,6 +110,7 @@
                                   {% endfor %}
                                 {% endif %}
                               </form>
+                              {% endifequal %}
                             {% endifequal %}
                       </div>
                     </div>

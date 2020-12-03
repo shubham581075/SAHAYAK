@@ -28,7 +28,8 @@ def search(request,city):
             return HttpResponseRedirect(urlreq)
 
 def sendmsg(msg, recipient_no):
-     
+    account_sid = 'ACc40ea0171e8e286e01a088a435b2850d' 
+    auth_token = '24b41f531375e13efde5a57c0819d459'
     client = Client(account_sid, auth_token) 
     message = client.messages.create(from_='+19034965809',  body=msg, to=recipient_no)
 
@@ -142,7 +143,8 @@ def register(request,city):
             re_password=fm.cleaned_data['re_password']
             if(password==re_password):
                 fm=User()
-            obj2=django_user(username=mobile,email=email,first_name=first_name,last_name=last_name,password=password)
+            obj2=django_user(username=mobile,email=email,first_name=first_name,last_name=last_name)
+            obj2.set_password('123')
             obj2.save()
             obj1=t_user(mobile=mobile,first_name=first_name,last_name=last_name,email=email,address=address,password=password,categ='0')
             obj1.save()
