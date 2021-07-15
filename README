@@ -1,0 +1,12 @@
+This project is a web application. It is for providing a online platform for booking household services (e.g. cleaning, plumber,electrician etc. ). 
+Customers can book the services and schedule a preffered time at which they want to avail the service, now according to that time it finds the nearest service provider who is free at that time
+( if no one is free at that time it will ask the user to provide a different time slot).
+As the service will be booked it will generate a unique token no which service provider will ask to customer to mark the service as completed after the service is delivered.
+There is different profile section for customers and service providers where they can see the list of services booked and full information about the service or the service to provided in case of service provider.
+Once the service is delivered the user can give the feedback about the service and can ask for re-service if not serviced properly.
+
+Tech-Stack Used -
+
+We have used Django for the backend-development and HTML, CSS, Bootstrap, Javascript for the front-end part.
+We have used Sqlite as Database Management System.
+We have used various APIs like , Geocoder to trace the user's location geopy for finding the nearest distance and twilio for sending the neccesay information(e.g. service booking information) to customer via text message.
